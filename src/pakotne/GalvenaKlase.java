@@ -83,6 +83,7 @@ public class GalvenaKlase {
 					System.out.println("Nav ievadīti studenti vai kritēriji!");
 				break;
 			case "5":
+				method_klase.kritRedo(kriteriji);
 				break;
 			case "6":
 				break;	

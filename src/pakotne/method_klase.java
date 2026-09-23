@@ -102,6 +102,7 @@ public class method_klase {
 		}
 	}
 
+	
 	public static void kritResultsEntry(int[][] kriterijaVertejums, String[] studenti, String[] kriteriji)
 	{
 		// Norāda vērtējumu kādu ieguvis katrs audzēknis par katru kritēriju
@@ -117,6 +118,27 @@ public class method_klase {
 						}while(kriterijaVertejums[i][j]<0 || kriterijaVertejums[i][j]>10);
 					}
 				}
+	}
+	
+	public static void kritRedo(String[] kriteriji)
+	{
+		System.out.println("Izvēlies kritēriju ko labot (ievadi tā nr.):");
+		
+		for(int i=0; i<kriteriji.length;i++)
+			System.out.print(" | "+(i+1)+"."+kriteriji[i]);
+		
+		System.out.println();
+		
+		String temp = scan.nextLine();
+		
+		for(int i=0; i<kriteriji.length;i++) {
+			if(temp.equals(Integer.toString(i))) {
+				System.out.println("Ievadiet jauno kriterija nosaukumu: ");
+				kriteriji[i] = scan.nextLine();
+				return;
+			}
+		}
+		System.out.println("Nav izvēlēts īsts kritērijs");
 	}
 	
 	public static void finalResCalc(String[] studenti, String[] kriteriji, int[] kriterijaSvars, int[][] kriterijaVertejums, double[] semestraVertejums)
