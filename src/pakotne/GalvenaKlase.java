@@ -37,6 +37,17 @@ public class GalvenaKlase {
 		return kritSk;
 	}
 	
+	public static void nameEntry(String[] studenti)
+	{
+		// Ievada audzēkņu vārdus, uzvārdus
+				for(int i=0; i<studenti.length; i++) {
+					do {
+						System.out.println("Ievadi "+(i+1)+". studentu");
+						studenti[i] = scan.nextLine().trim();
+					} while(!studenti[i].matches("^[\\p{L} ]+$"));
+				}
+	}
+	
 	public static void main(String[] args) {
 		int studSk, kritSk;
 		
@@ -53,13 +64,7 @@ public class GalvenaKlase {
 		
 		scan.nextLine();
 		
-		// Ievada audzēkņu vārdus, uzvārdus
-		for(int i=0; i<studenti.length; i++) {
-			do {
-				System.out.println("Ievadi "+(i+1)+". studentu");
-				studenti[i] = scan.nextLine().trim();
-			} while(!studenti[i].matches("^[\\p{L} ]+$"));
-		}
+		nameEntry(studenti);
 		
 		// Definē kritērijus
 		int maxSvars = 100, sk = 1;
