@@ -197,4 +197,34 @@ public class method_klase {
 
 				}
 	}
+
+	public static void readFile()
+	{
+		JFileChooser choozer = new JFileChooser("c:", FileSystemView.getFileSystemView());
+		JFrame owner = new JFrame();
+		owner.setAlwaysOnTop(true);
+
+		//Ļauj izvēlēties tikai .txt datnes
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Teksta datnes (*.txt)", "txt");
+		choozer.setFileFilter(filter);
+		choozer.setAcceptAllFileFilterUsed(false);
+		
+		int opt = choozer.showOpenDialog(owner);
+		File fails = choozer.getSelectedFile();
+		
+		if(opt == JFileChooser.APPROVE_OPTION && fails.exists()) {
+
+		 try (Scanner rdr = new Scanner(fails)) {
+		    while (rdr.hasNextLine()) {
+		      String data = rdr.nextLine();
+		      System.out.println(data);
+		    }
+		  } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		  }
+		}
+		else
+			System.out.println("Darbība atcelta!");
+	}
 }

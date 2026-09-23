@@ -101,6 +101,7 @@ public class GalvenaKlase {
 					System.out.println("Nav ievadīti kādi no datiem, iespējams pēc citu datu mainīšanas.");
 				break;
 			case "10":
+				method_klase.readFile();
 				break;
 			default:
 				System.out.println("Nederīga vērtība!");
