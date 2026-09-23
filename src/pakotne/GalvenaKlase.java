@@ -1,27 +1,28 @@
 package pakotne;
 
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Scanner;
+
 public class GalvenaKlase {
-	
-	
+
 	public static void main(String[] args) {
-		int studSk, kritSk;
 		
-		studSk = method_klase.sklSkEntry();
-		String[] studenti = new String[studSk];
+		Scanner sc = new Scanner(System.in);
 		
-		kritSk = method_klase.kritSkEntry();
-		String[] kriteriji = new String[kritSk];
-		int[] kriterijaSvars = new int[kritSk];
+		int studSk, kritSk, maxSvars = 100;
+		String[] studenti;
+		String[] kriteriji;
+		int[] kriterijaSvars;
+		int[][] kriterijaVertejums;
+		double[] semestraVertejums;
+		/*
 		int[][] kriterijaVertejums = new int[studSk][kritSk];
 		double[] semestraVertejums = new double[studSk];
+		*/
 		
 		
-		method_klase.nameEntry(studenti);
 		
-		// Definē kritērijus
-		int maxSvars = 100;
-		
-		method_klase.weightEntry(kriteriji, kriterijaSvars, maxSvars);
 		
 		method_klase.kritResultsEntry(kriterijaVertejums, studenti, kriteriji);
 		
@@ -29,6 +30,50 @@ public class GalvenaKlase {
 		
 		method_klase.fullResOut(studenti, kriteriji, kriterijaVertejums, semestraVertejums, kriterijaSvars);
 		
+		String izvele;
+		boolean validInt;
+		
+		do {
+			System.out.println("0 - Iziet\n"
+			+ "1 - Ievadīt audzēkņus\n"
+			+ "2 - Ievadīt kritērijus\n"
+			+ "3 - Ievadīt kritēriju svarus\n"
+			+ "4 - Ievadīt vērtējumus\n"
+			+ "5 - Labot kritēriju\n"
+			+ "6 - Labot kritērija svaru\n"
+			+ "7 - Labot iegūto vērtējumu\n"
+			+ "8 - Aprēķināt gala vērtējumu\n"
+			+ "9 - Saglabāt rezultātus failā\n"
+			+ "10 - Nolasīt rezultātus no faila");
+				
+			izvele = sc.nextLine();
+
+			switch(izvele) {
+			case "0":
+				break;
+			
+			case "1":
+				studSk = method_klase.sklSkEntry();
+				studenti = new String[studSk];
+				
+				method_klase.nameEntry(studenti);
+				break;
+			case "2":
+				kritSk = method_klase.kritSkEntry();
+				kriteriji = new String[kritSk];
+				kriterijaSvars = new int[kritSk];
+				
+				method_klase.weightEntry(kriteriji, kriterijaSvars, maxSvars);
+				break;
+			case "":
+				
+			default:
+				System.out.println("Nederīga vērtība!");
+			}
+			
+		}while(!izvele.equals("0"));
+		
 		method_klase.scan.close();
+		sc.close();
 	}
 }
