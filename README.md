@@ -4,7 +4,7 @@ Java programmēšanas valodā izstrādātā programmatūras projekta sākotnēj�
 **Darāmo darbu saraksts**
 - [x] Izstrādāt projekta sākotnējo versiju (viena klase, bez metodēm)
 - [x] Programmas kodu izdalīt metodēs
-- [ ] Programmas kodu izdalīt atsevišķās klasēs
+- [x] Programmas kodu izdalīt atsevišķās klasēs
 - [ ] Programmā ieviest galveno izvēlni
 	- [ ] Ievadīt audzēkņus
 	- [ ] Ievadīt kritērijus
