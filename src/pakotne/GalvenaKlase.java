@@ -48,26 +48,9 @@ public class GalvenaKlase {
 				}
 	}
 	
-	public static void main(String[] args) {
-		int studSk, kritSk;
-		
-		DecimalFormat df = new DecimalFormat("0.#");
-		
-		studSk = sklSkEntry();
-		String[] studenti = new String[studSk];
-		
-		kritSk = kritSkEntry();
-		String[] kriteriji = new String[kritSk];
-		int[] kriterijaSvars = new int[kritSk];
-		int[][] kriterijaVertejums = new int[studSk][kritSk];
-		double[] semestraVertejums = new double[studSk];
-		
-		scan.nextLine();
-		
-		nameEntry(studenti);
-		
-		// Definē kritērijus
-		int maxSvars = 100, sk = 1;
+	public static void weightEntry(String[] kriteriji, int[] kriterijaSvars, int maxSvars)
+	{
+		int sk = 1;
 		double atlSvars;
 		for(int i=0; i<kriteriji.length; i++) {
 			do {
@@ -95,20 +78,48 @@ public class GalvenaKlase {
 			sk++;
 			scan.nextLine();
 		}
-		
+	}
+
+	public static void kritResultsEntry(int[][] kriterijaVertejums, String[] studenti, String[] kriteriji)
+	{
 		// Norāda vērtējumu kādu ieguvis katrs audzēknis par katru kritēriju
-		for(int i=0; i<kriterijaVertejums.length; i++) {
-			for(int j=0; j<kriterijaVertejums[i].length; j++) {
-				do {
-					System.out.println("Ievadi "+studenti[i]+" vērtējumu par kritēriju "+kriteriji[j]);
-					while(!scan.hasNextInt()) {
-						System.out.println("Ievadi "+studenti[i]+" vērtējumu par kritēriju "+kriteriji[j]);
-						scan.next();
+				for(int i=0; i<kriterijaVertejums.length; i++) {
+					for(int j=0; j<kriterijaVertejums[i].length; j++) {
+						do {
+							System.out.println("Ievadi "+studenti[i]+" vērtējumu par kritēriju "+kriteriji[j]);
+							while(!scan.hasNextInt()) {
+								System.out.println("Ievadi "+studenti[i]+" vērtējumu par kritēriju "+kriteriji[j]);
+								scan.next();
+							}
+							kriterijaVertejums[i][j] = scan.nextInt();
+						}while(kriterijaVertejums[i][j]<0 || kriterijaVertejums[i][j]>10);
 					}
-					kriterijaVertejums[i][j] = scan.nextInt();
-				}while(kriterijaVertejums[i][j]<0 || kriterijaVertejums[i][j]>10);
-			}
-		}
+				}
+	}
+	public static void main(String[] args) {
+		int studSk, kritSk;
+		
+		DecimalFormat df = new DecimalFormat("0.#");
+		
+		studSk = sklSkEntry();
+		String[] studenti = new String[studSk];
+		
+		kritSk = kritSkEntry();
+		String[] kriteriji = new String[kritSk];
+		int[] kriterijaSvars = new int[kritSk];
+		int[][] kriterijaVertejums = new int[studSk][kritSk];
+		double[] semestraVertejums = new double[studSk];
+		
+		scan.nextLine();
+		
+		nameEntry(studenti);
+		
+		// Definē kritērijus
+		int maxSvars = 100;
+		
+		weightEntry(kriteriji, kriterijaSvars, maxSvars);
+		
+		kritResultsEntry(kriterijaVertejums, studenti, kriteriji);
 		
 		// Gala vērtējuma aprēķināšana
 		double rezultats;
