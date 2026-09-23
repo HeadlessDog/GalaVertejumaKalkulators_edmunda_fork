@@ -96,6 +96,21 @@ public class GalvenaKlase {
 					}
 				}
 	}
+	
+	public static void finalResCalc(String[] studenti, String[] kriteriji, int[] kriterijaSvars, int[][] kriterijaVertejums, double[] semestraVertejums)
+	{
+		// Gala vērtējuma aprēķināšana
+		double rezultats;
+		
+		for(int i=0; i<studenti.length; i++) {
+			rezultats=0;
+			for(int j=0; j<kriteriji.length; j++) {
+				rezultats += ((double) kriterijaSvars[j]/100)*kriterijaVertejums[i][j];
+			}
+			semestraVertejums[i] = rezultats;
+		}
+	}
+	
 	public static void main(String[] args) {
 		int studSk, kritSk;
 		
@@ -121,15 +136,7 @@ public class GalvenaKlase {
 		
 		kritResultsEntry(kriterijaVertejums, studenti, kriteriji);
 		
-		// Gala vērtējuma aprēķināšana
-		double rezultats;
-		for(int i=0; i<studenti.length; i++) {
-			rezultats=0;
-			for(int j=0; j<kriteriji.length; j++) {
-				rezultats += ((double) kriterijaSvars[j]/100)*kriterijaVertejums[i][j];
-			}
-			semestraVertejums[i] = rezultats;
-		}
+		finalResCalc(studenti, kriteriji, kriterijaSvars, kriterijaVertejums, semestraVertejums);
 		
 		// Gala vērtējumu izvadīšana
 		for(int i=0; i<studenti.length; i++) {	
