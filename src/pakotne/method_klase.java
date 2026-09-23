@@ -44,7 +44,7 @@ public class method_klase {
 			return studSk;
 	}
 	
-	public static int kritSkEntry()
+	public static int kritSkEntry(String[] kriteriji)
 	{
 		int kritSk =0;
 		// Vērtēšanas kritēriju skaita ievade
@@ -52,10 +52,17 @@ public class method_klase {
 					System.out.println("Kāds būs kritēriju skaits?");
 					while(!scan.hasNextInt()) {
 						System.out.println("Kāds būs kritēriju skaits?");
-						scan.next();
+						scan.nextLine();
 					}
 					kritSk = scan.nextInt();
 				}while(kritSk<1);
+			kriteriji = new String[kritSk];
+			for(int i=0; i<kriteriji.length; i++) {
+				do {
+					System.out.println("Ievadi "+(i+1)+". kritēriju");
+					kriteriji[i] = scan.nextLine().trim();
+				} while(!kriteriji[i].matches("^[\\p{L} ]+$"));
+			}
 		return kritSk;
 	}
 	
@@ -75,11 +82,6 @@ public class method_klase {
 		int sk = 1;
 		double atlSvars;
 		for(int i=0; i<kriteriji.length; i++) {
-			do {
-				System.out.println("Ievadi "+(i+1)+". kritēriju");
-				kriteriji[i] = scan.nextLine().trim();
-			} while(!kriteriji[i].matches("^[\\p{L} ]+$"));
-			
 			// Norāda katra kritērija svaru
 			do {
 				System.out.println("Ievadi "+(i+1)+". kritērija svaru (max: "+maxSvars+")");
@@ -102,6 +104,51 @@ public class method_klase {
 		}
 	}
 
+	public static void redoWeight(String[] kriteriji, int[] kriterijaSvars, int maxSvars)
+	{
+		String temp;
+		boolean validInt;
+		int newInt, totalPercent = 100;
+		do {
+			if(totalPercent != 100)
+				System.out.println("Svari nesummējās uz 100%");
+			
+		System.out.println("Izvēlies kritēriju kam labot svaru (ievadi tā nr.):");
+		
+		for(int i=0; i<kriteriji.length;i++)
+			System.out.print(" | "+(i+1)+"."+kriteriji[i]);
+		
+		System.out.println();
+		
+		temp = scan.nextLine();
+		
+		newInt = 0; 
+		totalPercent = 0;
+		
+		for(int i=0; i<kriteriji.length;i++) {
+			if(temp.equals(Integer.toString(i))) {
+				do {
+					System.out.println("Ievadiet jauno kriterija "+kriteriji[i]+" svaru: ");
+					temp = scan.nextLine();
+					
+					if(isInteger(temp, 10))
+						newInt = Integer.parseInt(temp);
+					
+					validInt = (newInt < 5 || newInt > maxSvars) ? false : true;
+						
+					if(!validInt)
+						System.out.println("Nedarīga vērtība!");
+				}while(!validInt);
+				kriterijaSvars[i] = newInt;
+			}
+			totalPercent += kriterijaSvars[i];
+		}
+		if(newInt == 0)
+			System.out.println("Šads kritērijs neeksistē!");
+		
+		}while(totalPercent != 100);
+		
+	}
 	
 	public static void kritResultsEntry(int[][] kriterijaVertejums, String[] studenti, String[] kriteriji)
 	{

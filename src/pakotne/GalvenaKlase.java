@@ -53,8 +53,7 @@ public class GalvenaKlase {
 				kriterijaVertejums = null;
 				break;
 			case "2":
-				kritSk = method_klase.kritSkEntry();
-				kriteriji = new String[kritSk];
+				kritSk = method_klase.kritSkEntry(kriteriji);
 				kriterijaSvars = new int[kritSk];
 				
 				semestraVertejums = null;
@@ -86,6 +85,14 @@ public class GalvenaKlase {
 				method_klase.kritRedo(kriteriji);
 				break;
 			case "6":
+				if(kriteriji != null && !Arrays.stream(kriteriji).allMatch(Objects::isNull)) {
+					method_klase.redoWeight(kriteriji, kriterijaSvars, maxSvars);
+					
+					semestraVertejums = null;
+					kriterijaVertejums = null;
+				}
+				else
+					System.out.println("Kādi no datiem nav ievadīti.");
 				break;	
 			case "7":
 				break;
