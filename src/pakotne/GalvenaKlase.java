@@ -10,25 +10,18 @@ public class GalvenaKlase {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		int studSk, kritSk, maxSvars = 100;
+		int studSk = 0, kritSk = 0, maxSvars = 100;
 		String[] studenti = null;
 		String[] kriteriji = null;
 		int[] kriterijaSvars = null;
 		int[][] kriterijaVertejums = null;
 		double[] semestraVertejums = null;
 		/*
-		int[][] kriterijaVertejums = new int[studSk][kritSk];
-		double[] semestraVertejums = new double[studSk];
+		int[][] kriterijaVertejums = 
+		double[] 
 		*/
-
-		
-		
-		method_klase.finalResCalc(studenti, kriteriji, kriterijaSvars, kriterijaVertejums, semestraVertejums);
-		
-		method_klase.fullResOut(studenti, kriteriji, kriterijaVertejums, semestraVertejums, kriterijaSvars);
 		
 		String izvele;
-		boolean validInt;
 		
 		do {
 			System.out.println("0 - Iziet\n"
@@ -52,6 +45,7 @@ public class GalvenaKlase {
 			case "1":
 				studSk = method_klase.sklSkEntry();
 				studenti = new String[studSk];
+				semestraVertejums = new double[studSk];
 				
 				method_klase.nameEntry(studenti);
 				
@@ -80,6 +74,7 @@ public class GalvenaKlase {
 				if(studenti != null && !Arrays.stream(studenti).allMatch(Objects::isNull)
 					&& kriteriji != null && !Arrays.stream(kriteriji).allMatch(Objects::isNull)) {
 					
+					kriterijaVertejums = new int[studSk][kritSk];
 					method_klase.kritResultsEntry(kriterijaVertejums, studenti, kriteriji);
 					
 					method_klase.finalResCalc(studenti, kriteriji, kriterijaSvars, kriterijaVertejums, semestraVertejums);
@@ -97,7 +92,15 @@ public class GalvenaKlase {
 				if(semestraVertejums != null && !Arrays.stream(semestraVertejums).allMatch(Objects::isNull))
 					method_klase.fullResOut(studenti, kriteriji, kriterijaVertejums, semestraVertejums, kriterijaSvars);
 				else
-					System.out.println("Nav ");
+					System.out.println("Nav ievadīti kādi no datiem, iespējams pēc citu datu mainīšanas.");
+				break;
+			case "9":
+				if(semestraVertejums != null && !Arrays.stream(semestraVertejums).allMatch(Objects::isNull))
+					method_klase.saveResFile(studenti, kriteriji, kriterijaVertejums, kriterijaSvars, semestraVertejums);
+				else
+					System.out.println("Nav ievadīti kādi no datiem, iespējams pēc citu datu mainīšanas.");
+				break;
+			case "10":
 				break;
 			default:
 				System.out.println("Nederīga vērtība!");

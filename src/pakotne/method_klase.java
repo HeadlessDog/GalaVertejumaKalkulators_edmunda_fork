@@ -1,7 +1,15 @@
 package pakotne;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.Scanner;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
 public class method_klase {
 
@@ -134,6 +142,59 @@ public class method_klase {
 					}
 					System.out.println("Semestra vērtējums ir "+df.format(semestraVertejums[i])+" balles"
 							+ "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+				}
+	}
+
+	public static void saveResFile(String[] studenti, String[] kriteriji, int[][] kriterijaVertejums, int[] kriterijaSvars, double[] semestraVertejums)
+	{
+			JFileChooser choozer = new JFileChooser("c:", FileSystemView.getFileSystemView());
+			JFrame owner = new JFrame();
+			owner.setAlwaysOnTop(true);
+
+			//Ļauj izvēlēties tikai .txt datnes
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Teksta datnes (*.txt)", "txt");
+			choozer.setFileFilter(filter);
+			choozer.setAcceptAllFileFilterUsed(false);
+
+
+			int opt = choozer.showSaveDialog(owner);
+			owner.dispose();
+
+			if(opt == JFileChooser.APPROVE_OPTION) {
+				File izvSelFails = choozer.getSelectedFile();
+
+				//Nostrādā jebkuru ievadīto paplašinājumu un piespiedu kārtā uzliek .txt
+				String izvFailsName = izvSelFails.getName();
+				int dotIndex = izvFailsName.lastIndexOf('.');
+				String izvFailsBaseName = (dotIndex == -1) ? izvFailsName : izvFailsName.substring(0, dotIndex);
+				izvSelFails = new File(izvSelFails.getParentFile(), izvFailsBaseName+".txt");
+
+				
+				if(izvSelFails.exists()) {
+					System.out.println("Fails "+izvFailsBaseName+".txt jau eksistē, vai turpināt? (y/n)");
+					String tempInput = scan.nextLine();
+					do {
+						if(tempInput.equals("n")) return;
+						else if(!tempInput.equals("y"))
+							System.out.println("Ievadiet y- jā, n - nē");
+
+					}while(!tempInput.equals("y"));
+				}
+				try{
+						PrintWriter raksta = new PrintWriter(izvSelFails);
+						//Rezultātu izvade teksta failā
+						for(int i=0; i<studenti.length; i++) {	
+							for(int j=0; j<kriteriji.length; j++) {
+								raksta.println("Studenta "+studenti[i]+" vērtējums par kritēriju "+kriteriji[j]+" ir "+kriterijaVertejums[i][j]+", kura svars ir "+kriterijaSvars[j]);
+							}
+							raksta.println("Semestra vērtējums ir "+df.format(semestraVertejums[i])+" balles"
+									+ "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+						}
+						raksta.close();
+					} catch (FileNotFoundException e) {
+						System.out.println("Nevarēja izveidot failu");
+					}
+
 				}
 	}
 }
