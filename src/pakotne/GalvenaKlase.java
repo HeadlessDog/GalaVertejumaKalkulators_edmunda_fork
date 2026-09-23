@@ -54,25 +54,50 @@ public class GalvenaKlase {
 				studenti = new String[studSk];
 				
 				method_klase.nameEntry(studenti);
+				
+				semestraVertejums = null;
+				kriterijaVertejums = null;
 				break;
 			case "2":
 				kritSk = method_klase.kritSkEntry();
 				kriteriji = new String[kritSk];
 				kriterijaSvars = new int[kritSk];
 				
+				semestraVertejums = null;
+				kriterijaVertejums = null;
 				break;
 			case "3":
-				if(kriteriji != null && !Arrays.stream(kriteriji).allMatch(Objects::isNull))
+				if(kriteriji != null && !Arrays.stream(kriteriji).allMatch(Objects::isNull)) {
 					method_klase.weightEntry(kriteriji, kriterijaSvars, maxSvars);
+					
+					semestraVertejums = null;
+					kriterijaVertejums = null;
+				}
 				else
 					System.out.println("Nav ievadīti kritēriji!");
 				break;
 			case "4":
 				if(studenti != null && !Arrays.stream(studenti).allMatch(Objects::isNull)
-					&& kriteriji != null && !Arrays.stream(kriteriji).allMatch(Objects::isNull))
+					&& kriteriji != null && !Arrays.stream(kriteriji).allMatch(Objects::isNull)) {
+					
 					method_klase.kritResultsEntry(kriterijaVertejums, studenti, kriteriji);
+					
+					method_klase.finalResCalc(studenti, kriteriji, kriterijaSvars, kriterijaVertejums, semestraVertejums);
+				}
 				else
 					System.out.println("Nav ievadīti studenti vai kritēriji!");
+				break;
+			case "5":
+				break;
+			case "6":
+				break;	
+			case "7":
+				break;
+			case "8":
+				if(semestraVertejums != null && !Arrays.stream(semestraVertejums).allMatch(Objects::isNull))
+					method_klase.fullResOut(studenti, kriteriji, kriterijaVertejums, semestraVertejums, kriterijaSvars);
+				else
+					System.out.println("Nav ");
 				break;
 			default:
 				System.out.println("Nederīga vērtība!");
