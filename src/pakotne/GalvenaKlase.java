@@ -22,6 +22,21 @@ public class GalvenaKlase {
 			return studSk;
 	}
 	
+	public static int kritSkEntry()
+	{
+		int kritSk =0;
+		// Vērtēšanas kritēriju skaita ievade
+				do {
+					System.out.println("Kāds būs kritēriju skaits?");
+					while(!scan.hasNextInt()) {
+						System.out.println("Kāds būs kritēriju skaits?");
+						scan.next();
+					}
+					kritSk = scan.nextInt();
+				}while(kritSk<1);
+		return kritSk;
+	}
+	
 	public static void main(String[] args) {
 		int studSk, kritSk;
 		
@@ -30,15 +45,7 @@ public class GalvenaKlase {
 		studSk = sklSkEntry();
 		String[] studenti = new String[studSk];
 		
-		// Vērtēšanas kritēriju skaita ievade
-		do {
-			System.out.println("Kāds būs kritēriju skaits?");
-			while(!scan.hasNextInt()) {
-				System.out.println("Kāds būs kritēriju skaits?");
-				scan.next();
-			}
-			kritSk = scan.nextInt();
-		}while(kritSk<1);
+		kritSk = kritSkEntry();
 		String[] kriteriji = new String[kritSk];
 		int[] kriterijaSvars = new int[kritSk];
 		int[][] kriterijaVertejums = new int[studSk][kritSk];
