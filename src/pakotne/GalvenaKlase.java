@@ -11,20 +11,17 @@ public class GalvenaKlase {
 		Scanner sc = new Scanner(System.in);
 		
 		int studSk, kritSk, maxSvars = 100;
-		String[] studenti;
-		String[] kriteriji;
-		int[] kriterijaSvars;
-		int[][] kriterijaVertejums;
-		double[] semestraVertejums;
+		String[] studenti = null;
+		String[] kriteriji = null;
+		int[] kriterijaSvars = null;
+		int[][] kriterijaVertejums = null;
+		double[] semestraVertejums = null;
 		/*
 		int[][] kriterijaVertejums = new int[studSk][kritSk];
 		double[] semestraVertejums = new double[studSk];
 		*/
+
 		
-		
-		
-		
-		method_klase.kritResultsEntry(kriterijaVertejums, studenti, kriteriji);
 		
 		method_klase.finalResCalc(studenti, kriteriji, kriterijaSvars, kriterijaVertejums, semestraVertejums);
 		
@@ -63,10 +60,20 @@ public class GalvenaKlase {
 				kriteriji = new String[kritSk];
 				kriterijaSvars = new int[kritSk];
 				
-				method_klase.weightEntry(kriteriji, kriterijaSvars, maxSvars);
 				break;
-			case "":
-				
+			case "3":
+				if(kriteriji != null && !Arrays.stream(kriteriji).allMatch(Objects::isNull))
+					method_klase.weightEntry(kriteriji, kriterijaSvars, maxSvars);
+				else
+					System.out.println("Nav ievadīti kritēriji!");
+				break;
+			case "4":
+				if(studenti != null && !Arrays.stream(studenti).allMatch(Objects::isNull)
+					&& kriteriji != null && !Arrays.stream(kriteriji).allMatch(Objects::isNull))
+					method_klase.kritResultsEntry(kriterijaVertejums, studenti, kriteriji);
+				else
+					System.out.println("Nav ievadīti studenti vai kritēriji!");
+				break;
 			default:
 				System.out.println("Nederīga vērtība!");
 			}
