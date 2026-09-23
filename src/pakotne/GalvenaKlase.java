@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class GalvenaKlase {
 	
 	public static Scanner scan = new Scanner(System.in);
+	public static DecimalFormat df = new DecimalFormat("0.#");
 	
 	public static int sklSkEntry()
 	{
@@ -111,10 +112,20 @@ public class GalvenaKlase {
 		}
 	}
 	
+	public static void fullResOut(String[] studenti, String[] kriteriji, int[][] kriterijaVertejums, double[] semestraVertejums, int[] kriterijaSvars)
+	{
+		// Gala vērtējumu izvadīšana
+				for(int i=0; i<studenti.length; i++) {	
+					for(int j=0; j<kriteriji.length; j++) {
+						System.out.println("Studenta "+studenti[i]+" vērtējums par kritēriju "+kriteriji[j]+" ir "+kriterijaVertejums[i][j]+", kura svars ir "+kriterijaSvars[j]);
+					}
+					System.out.println("Semestra vērtējums ir "+df.format(semestraVertejums[i])+" balles"
+							+ "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+				}
+	}
+	
 	public static void main(String[] args) {
 		int studSk, kritSk;
-		
-		DecimalFormat df = new DecimalFormat("0.#");
 		
 		studSk = sklSkEntry();
 		String[] studenti = new String[studSk];
@@ -138,14 +149,8 @@ public class GalvenaKlase {
 		
 		finalResCalc(studenti, kriteriji, kriterijaSvars, kriterijaVertejums, semestraVertejums);
 		
-		// Gala vērtējumu izvadīšana
-		for(int i=0; i<studenti.length; i++) {	
-			for(int j=0; j<kriteriji.length; j++) {
-				System.out.println("Studenta "+studenti[i]+" vērtējums par kritēriju "+kriteriji[j]+" ir "+kriterijaVertejums[i][j]+", kura svars ir "+kriterijaSvars[j]);
-			}
-			System.out.println("Semestra vērtējums ir "+df.format(semestraVertejums[i])+" balles"
-					+ "\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-		}
+		fullResOut(studenti, kriteriji, kriterijaVertejums, semestraVertejums, kriterijaSvars);
+		
 		scan.close();
 	}
 }
