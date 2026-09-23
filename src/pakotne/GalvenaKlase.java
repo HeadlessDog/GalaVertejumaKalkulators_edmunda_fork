@@ -4,20 +4,30 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class GalvenaKlase {
+	
+	public static Scanner scan = new Scanner(System.in);
+	
+	public static int sklSkEntry()
+	{
+		int studSk = 0;
+		// Audzēkņu skaita ievade
+				do {
+					System.out.println("Cik studentiem aprēķināsi gala vērtējumu?");
+					while(!scan.hasNextInt()) {
+						System.out.println("Cik studentiem aprēķināsi gala vērtējumu?");
+						scan.next();
+					}
+					studSk = scan.nextInt();
+				}while(studSk<1);
+			return studSk;
+	}
+	
 	public static void main(String[] args) {
 		int studSk, kritSk;
-		Scanner scan = new Scanner(System.in);
+		
 		DecimalFormat df = new DecimalFormat("0.#");
 		
-		// Audzēkņu skaita ievade
-		do {
-			System.out.println("Cik studentiem aprēķināsi gala vērtējumu?");
-			while(!scan.hasNextInt()) {
-				System.out.println("Cik studentiem aprēķināsi gala vērtējumu?");
-				scan.next();
-			}
-			studSk = scan.nextInt();
-		}while(studSk<1);
+		studSk = sklSkEntry();
 		String[] studenti = new String[studSk];
 		
 		// Vērtēšanas kritēriju skaita ievade
